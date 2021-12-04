@@ -21,7 +21,7 @@ const server = http.createServer(async(request,response)=>{
     });
     
     response.write(JSON.stringify({
-      "message":"itmo307694",
+      "message":"artem_wr",
       "x-result":request.headers["x-test"],
       "x-body":data
     }));
