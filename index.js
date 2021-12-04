@@ -1,30 +1,36 @@
 import http from 'http';
+const PORT = process.env.PORT || 3000;
 const CORS = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET,POST,DELETE,OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type, Access-Control-Allow-Headers, x-test'
-  };
-const app = http.createServer(async(req,res)=>{
-      if(req.url === '/result4/'){
-          
-          res.writeHead(200,{
-              'Content-Type':'application/json',
-              ...CORS,
-          })
-          let data = '';
-          await req.on('data', function(chunk){
-            data += chunk;
-            }).on('end', () => {
-          })
-          res.write(JSON.stringify({
-            "message":"artem_wr",
-            "x-result":headers,
-            "x-body":data
-            }
-            ))
-      }
-      res.end()
-      
-  });
-  app.listen(4321,()=>{
-      console.log('Server is running')});
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET,POST,DELETE,OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type, Access-Control-Allow-Headers, x-test'
+};
+
+const server = http.createServer(async(request,response)=>{
+  if(request.url === '/result4/'){
+    let data = '';
+    
+    response.writeHead(200,{
+      'Content-Type':'application/json',
+      ...CORS,
+    });
+    
+    await request.on('data', function(chunk){
+      data += chunk;
+      }).on('end', () => {
+    });
+    
+    response.write(JSON.stringify({
+      "message":"itmo307694",
+      "x-result":request.headers["x-test"],
+      "x-body":data
+    }));
+  }
+  
+  response.end();
+});
+
+
+server.listen(PORT, () => {
+    console.log(`Server has been started...`);
+});
